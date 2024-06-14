@@ -1,5 +1,5 @@
 from __init__ import CURSOR, CONN
-from bible import Bible  # Ensure this matches the filename of your Bible class
+from bible import Bible  
 
 class Books:
     all = {}
@@ -14,7 +14,7 @@ class Books:
 
     @classmethod
     def create_table(cls):
-        """Create a new table to persist the attributes of Book instances"""
+        """CREATES A NEW TABLE TO PERSIST THE ATTRIBUTES OF BOOK INSTANCES"""
         sql = """
             CREATE TABLE IF NOT EXISTS books (
                 id INTEGER PRIMARY KEY,
@@ -28,7 +28,7 @@ class Books:
 
     @classmethod
     def drop_table(cls):
-        """Drop the table that persists Book instances"""
+        """DROPS THE TABLE THAT PERSISTS BOOK INSTANCES"""
         sql = """
             DROP TABLE IF EXISTS books;
         """
@@ -36,9 +36,9 @@ class Books:
         CONN.commit()
 
     def save(self):
-        """Insert a new row with the name value of the current Book object.
-        Update object id attribute using the primary key value of new row.
-        Save the object in local dictionary using table row's PK as dictionary key"""
+        """INSERTS A NEW ROW WITH THE NAME VALUES OF THE CURRENT BOOK OBJECT.
+        UPDTAES OBJECT ID ATTRIBUTE USING THE PRIMARY KEY VALUE OF NEW ROW.
+        SAVES THE OBJECT IN LOCAL DICTIONARY USING TABLES ROW'S PRIMARY KEY AS DICT KEY"""
         sql = """
             INSERT INTO books (name, bible_id)
             VALUES (?, ?)
@@ -50,7 +50,7 @@ class Books:
         type(self).all[self.id] = self
 
     def update(self):
-        """Update the table row corresponding to the current Book instance."""
+        """UPDATES THE TABLE ROW CORRESPONDING TO THE CURRENT BOOK INSTANCE."""
         sql = """
             UPDATE books
             SET name = ?, bible_id = ?
@@ -60,8 +60,8 @@ class Books:
         CONN.commit()
 
     def delete(self):
-        """Delete the table row corresponding to the current Book instance,
-        delete the dictionary entry, and reassign id attribute"""
+        """DELETS THE TABLE ROW CORRESPONDING TO THE CURRENT BOOK INSTANCE,
+        DELETE THE DICTIONARY ENTRY, AND REASSIGN ID ATTRIBUTE"""
         sql = """
             DELETE FROM books
             WHERE id = ?
@@ -77,14 +77,14 @@ class Books:
 
     @classmethod
     def create(cls, name, bible_id):
-        """Initialize a new Book instance and save the object to the database"""
+        """INITIALIZE A NEW BOOK INSTANCE AND SAVE THE OBJECT TO THE DATABASE"""
         book = cls(name, bible_id)
         book.save()
         return book
 
     @classmethod
     def instance_from_db(cls, row):
-        """Return a Book object having the attribute values from the table row."""
+        """RETURN A BOOK OBJECT HAVING THE ATTRIBUTE VALUES FROM THE TABLE ROW."""
         # Check the dictionary for existing instance using the row's primary key
         book = cls.all.get(row[0])
         if book:
@@ -100,7 +100,7 @@ class Books:
 
     @classmethod
     def get_all(cls):
-        """Return a list containing one Book object per table row"""
+        """RETURN A LIST CONTAINING ONE BOOK OBJECT PER TABLE ROW"""
         sql = """
             SELECT *
             FROM books
@@ -110,7 +110,7 @@ class Books:
 
     @classmethod
     def find_by_id(cls, id):
-        """Return Book object corresponding to the table row matching the specified primary key"""
+        """RETURN BOOK OBJECT CORRESPONDING TO THE TABLE ROW MATCHING THE SPECIFIED PRIMARY KEY"""
         sql = """
             SELECT *
             FROM books
@@ -121,7 +121,7 @@ class Books:
 
     @classmethod
     def find_by_name(cls, name):
-        """Return Book object corresponding to the first table row matching the specified name"""
+        """RETURN BOOK OBJECT CORRESPONDING TO THE FIRST TABLE ROW MATCHING THE SPECIFIED NAME"""
         sql = """
             SELECT *
             FROM books

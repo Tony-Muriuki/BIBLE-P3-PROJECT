@@ -13,7 +13,7 @@ class Bible:
 
     @classmethod
     def create_table(cls):
-        """Create a new table to persist the attributes of Bible instances"""
+        """CREATES A NEW TABLE TO PERSIST THE ATTRIBUTES OF BIBLE INSTANCES"""
         sql = """
             CREATE TABLE IF NOT EXISTS bibles (
                 id INTEGER PRIMARY KEY,
@@ -26,7 +26,7 @@ class Bible:
 
     @classmethod
     def drop_table(cls):
-        """Drop the table that persists Bible instances"""
+        """DROP THE TABLE THAT PERSISTS BIBLE INSTANCES"""
         sql = """
             DROP TABLE IF EXISTS bibles;
         """
@@ -34,9 +34,9 @@ class Bible:
         CONN.commit()
 
     def save(self):
-        """Insert a new row with the testament and category values of the current Bible instance.
-        Update object id attribute using the primary key value of new row.
-        Save the object in local dictionary using table row's PK as dictionary key"""
+        """INSERT A NEW ROW WITH THE TESTAMENT AND CATEGORY VALUES OF THE CURRENT BIBLE INSTANCE.
+        UPDATE OBJECT ID ATTRIBUTE USING THE PRIMARY KEY VALUE OF NEW ROW.
+        SAVE THE OBJECT IN LOCAL DICTIONARY USING  TABLE ROW's PRIMARY KEY AS DICTIONARY KEY"""
         sql = """
             INSERT INTO bibles (testament, category)
             VALUES (?, ?)
@@ -49,13 +49,13 @@ class Bible:
 
     @classmethod
     def create(cls, testament, category):
-        """Initialize a new Bible instance and save the object to the database"""
+        """INITIALIZE A NEW BIBLE INSTANCE AND SAVE THE OBJECT TO  THE DATABASE"""
         bible = cls(testament, category)
         bible.save()
         return bible
 
     def update(self):
-        """Update the table row corresponding to the current Bible instance."""
+        """UPDATE THE TABLE ROW CORRESPONDINNG TO THE CURRENT BIBLE INSTANCE."""
         sql = """
             UPDATE bibles
             SET testament = ?, category = ?
@@ -65,8 +65,8 @@ class Bible:
         CONN.commit()
 
     def delete(self):
-        """Delete the table row corresponding to the current Bible instance,
-        delete the dictionary entry, and reassign id attribute"""
+        """DELETE THE TABLE ROW CORRESPODING TO THE CURRENT BIBLE INSTANCE,
+        DELETE THE DICTIONARY ENTRY, AND REASSIGN ID ATTRIBUTE"""
         sql = """
             DELETE FROM bibles
             WHERE id = ?
@@ -82,7 +82,7 @@ class Bible:
 
     @classmethod
     def instance_from_db(cls, row):
-        """Return a Bible object having the attribute values from the table row."""
+        """RETURN A BIBLE OBJECT HAVING THE ATTRIBUTE VALUES FROM THE TABLE ROW."""
         # Checks the dictionary for an existing instance using the row's primary key
         bible = cls.all.get(row[0])
         if bible:
@@ -90,7 +90,7 @@ class Bible:
             bible.testament = row[1]
             bible.category = row[2]
         else:
-            # Not in dictionary, create new instance and add to dictionary
+            # IF Not in dictionary, create new instance and add to dictionary
             bible = cls(row[1], row[2])
             bible.id = row[0]
             cls.all[bible.id] = bible
@@ -98,7 +98,7 @@ class Bible:
 
     @classmethod
     def get_all(cls):
-        """Return a list containing a Bible object per row in the table"""
+        """RETURN A LIST CONTAINING A BIBLE OBJECT PER ROW IN THE TABLE"""
         sql = """
             SELECT *
             FROM bibles
@@ -108,7 +108,7 @@ class Bible:
 
     @classmethod
     def find_by_id(cls, id):
-        """Returns a Bible object corresponding to the table row matching the specified primary key"""
+        """RETURNS A BIBLE OBJECT CORRESPONDING TO THE TABLE ROW MATCHING THE SPECIFIED PRIMARY KEY"""
         sql = """
             SELECT *
             FROM bibles
@@ -119,7 +119,7 @@ class Bible:
 
     @classmethod
     def find_by_testament(cls, testament):
-        """Returns a Bible object corresponding to the first table row matching specified testament"""
+        """RETURNS A BIBLE OBJECT CORRESPONDING TO THE FIRST TABLE ROW MATCHING SPECIFIED TESTAMENT"""
         sql = """
             SELECT *
             FROM bibles
