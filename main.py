@@ -49,6 +49,6 @@ class Bible:
     @classmethod
     def create(cls, testament, category):
         """ INITIALIZES A NEW DEPARTMENT INSTANCE AND  SAVE THE OBJECT TO THE DATABASE """
-        department = cls(testament, category)
-        department.save()
-        return department
+        bible = cls(testament, category)
+        bible.save()
+        return bible
