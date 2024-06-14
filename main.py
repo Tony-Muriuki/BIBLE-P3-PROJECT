@@ -32,4 +32,23 @@ class Bible:
         CURSOR.execute(sql)
         CONN.commit()
         
-    
+    def save(self):
+        """ Insert a new row with the name and location values of the current Department instance.
+        Update object id attribute using the primary key value of new row.
+        """
+        sql = """
+            INSERT INTO bibles (testament, category)
+            VALUES (?, ?)
+        """
+
+        CURSOR.execute(sql, (self.testament, self.category))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        
+    @classmethod
+    def create(cls, testament, category):
+        """ INITIALIZES A NEW DEPARTMENT INSTANCE AND  SAVE THE OBJECT TO THE DATABASE """
+        department = cls(testament, category)
+        department.save()
+        return department
