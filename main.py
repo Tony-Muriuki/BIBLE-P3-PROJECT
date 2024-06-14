@@ -31,3 +31,5 @@ class Bible:
         """
         CURSOR.execute(sql)
         CONN.commit()
+        
+    
