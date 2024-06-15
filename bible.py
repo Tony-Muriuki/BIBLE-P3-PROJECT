@@ -133,6 +133,7 @@ class Bible:
     @classmethod
     def find_by_name(cls, name):
         """Return Book object corresponding to the first table row matching the specified name"""
+        from books import Book
         sql = """
             SELECT *
             FROM books
