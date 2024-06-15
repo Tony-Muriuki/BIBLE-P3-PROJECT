@@ -1,7 +1,7 @@
 from __init__ import CURSOR, CONN
 from bible import Bible  
 
-class Books:
+class Book:
     all = {}
 
     def __init__(self, name, bible_id, id=None):
