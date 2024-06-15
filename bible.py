@@ -130,14 +130,13 @@ class Bible:
     
     
     
-    @classmethod
-    def find_by_name(cls, name):
-        """Return Book object corresponding to the first table row matching the specified name"""
+    def books(self):
+        """Return a list of Book objects associated with this Bible instance."""
         from books import Book
         sql = """
             SELECT *
             FROM books
-            WHERE name = ?
+            WHERE bible_id = ?
         """
-        row = CURSOR.execute(sql, (name,)).fetchone()
-        return cls.instance_from_db(row) if row else None
+        rows = CURSOR.execute(sql, (self.id,)).fetchall()
+        return [Book.instance_from_db(row) for row in rows]
