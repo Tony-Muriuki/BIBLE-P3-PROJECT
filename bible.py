@@ -86,7 +86,7 @@ class Bible:
         # Checks the dictionary for an existing instance using the row's primary key
         bible = cls.all.get(row[0])
         if bible:
-            # Ensure attributes match row values in case local instance was modified
+            # Ensures attributes match row values 
             bible.testament = row[1]
             bible.category = row[2]
         else:
@@ -131,7 +131,7 @@ class Bible:
     
     
     def books(self):
-        """Return a list of Book objects associated with this Bible instance."""
+        """RETURN A LIST OF BOOK OBJECTS ASSOCIATED WITH THIS BIBLE INSTANCE."""
         from books import Book
         sql = """
             SELECT *
