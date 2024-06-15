@@ -127,3 +127,16 @@ class Bible:
         """
         row = CURSOR.execute(sql, (testament,)).fetchone()
         return cls.instance_from_db(row) if row else None
+    
+    
+    
+    @classmethod
+    def find_by_name(cls, name):
+        """Return Book object corresponding to the first table row matching the specified name"""
+        sql = """
+            SELECT *
+            FROM books
+            WHERE name = ?
+        """
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
