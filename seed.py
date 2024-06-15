@@ -1,7 +1,8 @@
-# Import the classes
+
 from bible import Bible
 from books import Book
-# Create 6 Bible instances
+
+# Creating Bible instances
 bible1 = Bible.create('Old Testament', 'Law')
 bible2 = Bible.create('Old Testament', 'Prophets')
 bible3 = Bible.create('Old Testament', 'Wisdom')
@@ -9,7 +10,7 @@ bible4 = Bible.create('Old Testament', 'History')
 bible5 = Bible.create('New Testament', 'Gospels')
 bible6 = Bible.create('New Testament', 'Epistles')
 
-# Create Book instances associated with each Bible
+# Createing Book instances associated with each Bible
 book1 = Book.create('Genesis', bible1.id)
 book2 = Book.create('Exodus', bible1.id)
 
